@@ -1,5 +1,5 @@
 Django-приложение с персональными настройками (cookies)
-#Описание проекта
+# Описание проекта
 Веб-приложение для магазина планингов с функционалом сохранения пользовательских настроек с использованием cookies.
 Цель работы:
 Создание тематического Django-приложения с персональными настройками пользователя, сохраняемыми в cookies.
@@ -24,7 +24,7 @@ requirements.txt с зависимостями
 Полный Django стек: views, templates, urls
 
 
-🛠 Технологический стек
+Технологический стек
 Backend: Django 5.2.9
 
 Frontend: HTML5, CSS3
@@ -34,36 +34,6 @@ Frontend: HTML5, CSS3
 Хранение настроек: Cookies
 
 Язык программирования: Python 3.11
-
-Структура проекта
-text
-planner_lab2/
-├── planner_app/                    # Основное приложение
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── views.py                    # Логика работы с cookies
-│   └── urls.py
-├── planner_project/                # Настройки проекта
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py                 # Конфигурация Django
-│   ├── urls.py                     # Маршрутизация
-│   └── wsgi.py
-├── templates/                      # HTML шаблоны
-│   ├── home.html                   # Главная страница с настройками
-│   └── planner_detail.html         # Детальная страница планинга
-├── static/                         # Статические файлы
-│   └── style.css                   # Стили CSS
-├── venv/                           # Виртуальное окружение (.gitignore)
-├── db.sqlite3                      # База данных (.gitignore)
-├── manage.py                       # Скрипт управления Django
-├── requirements.txt                # Зависимости проекта
-├── .gitignore                      Игнорируемые файлы
-└── README.md                       # Эта документация
-
 
 
 1. Клонирование репозитория
