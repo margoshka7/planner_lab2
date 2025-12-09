@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Shop - Персональные настройки</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Динамические темы */
+        body.light-theme {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        
+        body.dark-theme {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        body.lunar-theme {
+            background-color: #0d1b2a;
+            color: #e0e1dd;
+            background-image: radial-gradient(circle at 20% 80%, #1b3a5c 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, #415a77 0%, transparent 50%);
+        }
+        
+        body.floral-theme {
+            background-color: #fffaf0;
+            color: #556b2f;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23d4edda" fill-opacity="0.1" d="M50,10 Q70,30 90,50 Q70,70 50,90 Q30,70 10,50 Q30,30 50,10 Z"/></svg>');
+        }
+        
+        /* Контейнеры */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Шапка */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid;
+            margin-bottom: 30px;
+        }
+        
+        .light-theme .header { border-color: #dee2e6; }
+        .dark-theme .header { border-color: #495057; }
+        .lunar-theme .header { border-color: #415a77; }
+        .floral-theme .header { border-color: #d4edda; }
+        
+        /* Панель настроек */
+        .settings-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .dark-theme .settings-panel,
+        .lunar-theme .settings-panel {
+            background: rgba(52, 58, 64, 0.9);
+            color: #f8f9fa;
+        }
+        
+        .floral-theme .settings-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #d4edda;
+        }
+        
+        /* Формы */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+            background: white;
+            color: #333;
+        }
+        
+        .dark-theme select,
+        .lunar-theme select {
+            background: #495057;
+            color: #f8f9fa;
+            border-color: #6c757d;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        /* Информация о настройках */
+        .settings-info {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .dark-theme .settings-info,
+        .lunar-theme .settings-info {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        /* Сетка планингов */
+        .planners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        /* Карточки планингов */
+        .planner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .planner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dark-theme .planner-card,
+        .lunar-theme .planner-card {
+            background: #495057;
+            border-color: #6c757d;
+            color: #f8f9fa;
+        }
+        
+        .floral-theme .planner-card {
+            background: #f8f9fa;
+            border: 1px solid #d4edda;
+        }
+        
+        .planner-title {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+        
+        .dark-theme .planner-title,
+        .lunar-theme .planner-title {
+            color: #e0e1dd;
+        }
+        
+        .planner-price {
+            color: #e74c3c;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .dark-theme .planner-price,
+        .lunar-theme .planner-price {
+            color: #ff6b6b;
+        }
+        
+        .planner-theme {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        
+        .theme-minimal { background: #e8f4fd; color: #3498db; }
+        .theme-lunar { background: #1b3a5c; color: #e0e1dd; }
+        .theme-floral { background: #d4edda; color: #155724; }
+        
+        .view-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: #2ecc71;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        
+        .view-link:hover {
+            background: #27ae60;
+            text-decoration: none;
+        }
+        
+        /* Футер */
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .light-theme .footer { border-color: #dee2e6; }
+        .dark-theme .footer { border-color: #495057; }
+        .lunar-theme .footer { border-color: #415a77; }
+        .floral-theme .footer { border-color: #d4edda; }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .planners-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .settings-panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="{{ current_theme }}-theme">
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <h1>📓 Planner Shop</h1>
+            <p>Магазин эксклюзивных планингов с персональными настройками</p>
+        </header>
+        
+        <!-- Панель настроек -->
+        <div class="settings-panel">
+            <h2>⚙️ Персональные настройки</h2>
+            <p>Измените внешний вид сайта под свои предпочтения. Настройки сохранятся в cookies.</p>
+            
+            <form method="post" action="/save-settings/">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="theme">🎨 Тема оформления:</label>
+                    <select name="theme" id="theme">
+                        {% for key, value in themes.items %}
+                            <option value="{{ key }}" {% if key == current_theme %}selected{% endif %}>
+                                {{ value }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="language">🌐 Язык интерфейса:</label>
+                    <select name="language" id="language">
+                        {% for key, value in languages.items %}
+                            <option value="{{ key }}" {% if key == current_language %}selected{% endif %}>
+                                {{ value }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <button type="submit">💾 Сохранить настройки</button>
+            </form>
+            
+            <!-- Информация о текущих настройках -->
+            <div class="settings-info">
+                <h3>📊 Текущие настройки:</h3>
+                <p><strong>Тема оформления:</strong> 
+                    {% for key, value in themes.items %}
+                        {% if key == current_theme %}{{ value }}{% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Язык интерфейса:</strong> 
+                    {% for key, value in languages.items %}
+                        {% if key == current_language %}{{ value }}{% endif %}
+                    {% endfor %}
+                </p>
+                <p><strong>Последнее посещение:</strong> {{ last_visited }}</p>
+                {% if viewed_history %}
+                    <p><strong>Недавно просмотрено:</strong> {{ viewed_history|length }} планинг(ов)</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Каталог планингов -->
+        <section>
+            <h2>🛍️ Наши планинги</h2>
+            <p>Выберите планинг, который подходит именно вам. Каждый просмотр сохраняется в истории.</p>
+            
+            <div class="planners-grid">
+                {% for planner in planners %}
+                <div class="planner-card">
+                    <h3 class="planner-title">{{ planner.title }}</h3>
+                    <p>{{ planner.description }}</p>
+                    
+                    <div class="planner-price">{{ planner.price }} ₽</div>
+                    
+                    <div>
+                        <span class="planner-theme theme-{{ planner.theme }}">
+                            {% if planner.theme == 'minimal' %}🔄 Минимализм
+                            {% elif planner.theme == 'lunar' %}🌙 Лунный стиль
+                            {% elif planner.theme == 'floral' %}🌸 Цветочный
+                            {% else %}🎨 Классика{% endif %}
+                        </span>
+                    </div>
+                    
+                    <a href="/planner/{{ planner.id }}/" class="view-link">👁️ Посмотреть подробнее</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <!-- Футер -->
+        <footer class="footer">
+            <p>© 2025 Planner Shop - Лабораторная работа по Django</p>
+            <p>Все настройки сохраняются с помощью cookies | Срок хранения: 1 год</p>
+            <p>Для сброса настроек очистите cookies браузера</p>
+        </footer>
+    </div>
+</body>
+</html>
