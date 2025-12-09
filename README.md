@@ -49,7 +49,7 @@ python -m venv venv
 venv\Scripts\activate
 
 # Активация (Mac/Linux)
-# source venv/bin/activate
+ source venv/bin/activate
 3. Установка зависимостей
 bash
 pip install -r requirements.txt
@@ -64,4 +64,5 @@ python manage.py createsuperuser
 bash
 python manage.py runserver
 6. Открытие в браузере
+
 Перейдите по адресу: http://127.0.0.1:8000/
